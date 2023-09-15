@@ -62,6 +62,12 @@
       socket.on('add-turn', command => {
         console.log(`Receiving ${command.type} -> ${command.playerId}`)
       })
+
+      socket.on('reset-game', () => {
+        console.log(`Receiving ${command.type}`)
+
+        game.resetGame()
+      })
     </script>
   </body>
 </html>

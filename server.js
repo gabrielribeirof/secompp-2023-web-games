@@ -44,6 +44,10 @@ io.on('connection', socket => {
   socket.on('add-turn', command => {
     game.addTurn(command)
   })
+
+  socket.on('reset-game', command => {
+    game.resetGame()
+  })
 })
 
 server.listen(3000, () => console.log('Servidor ouvindo em http://localhost:3000'))

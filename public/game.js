@@ -1,8 +1,13 @@
+const STATUS = {
+  WAITING_PLAYERS: 'waiting-players',
+  READY: 'ready'
+}
+
 export function createGame() {
   const state = {
     players: {},
     board: [],
-    status: 'waiting-players'
+    status: STATUS.WAITING_PLAYERS
   }
 
   const observers = []
@@ -41,7 +46,7 @@ export function createGame() {
       symbol: 'X',
       points: 0
     }
-    state.status = 'ready'
+    state.status = STATUS.READY
 
     notifyAll({
       type: 'add-player',
@@ -52,7 +57,7 @@ export function createGame() {
   function removePlayer(command) {
     delete state.players[command.playerId]
     state.board = []
-    state.status = 'waiting-players'
+    state.status = STATUS.WAITING_PLAYERS
 
     notifyAll({
       type: 'remove-player',
@@ -61,12 +66,20 @@ export function createGame() {
   }
 
   function addTurn(command) {
-    console.log('kkk', command, state.players)
     state.board[command.index] = state.players[command.playerId].symbol
 
     notifyAll({
       type: 'add-turn',
       playerId: command.playerId
+    })
+  }
+
+  function resetGame() {
+    state.board = []
+    state.status = STATUS.WAITING_PLAYERS
+
+    notifyAll({
+      type: 'reset-game'
     })
   }
 
@@ -77,6 +90,7 @@ export function createGame() {
     canReceiveMorePlayers,
     addPlayer,
     removePlayer,
-    addTurn
+    addTurn,
+    resetGame
   }
 }
