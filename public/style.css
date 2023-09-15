@@ -23,24 +23,46 @@ h1 {
 }
 
 #jogo {
-  width: 403px;
-  height: 400px;
-  /* border: solid 8px;  */
-  margin-top: 3%;
-  border-radius: 2%;
-  color: rgb(219, 215, 218);
+  width: 50%;
+  height: 50%;
+  display: grid;
+  grid-template-columns: 150px 150px 150px;
+  grid-template-rows: 150px 150px 150px;
+  color: #44b9ce;
 }
 
-.linha {
-  height: 133px;
-  border-bottom: solid 7px;
-  border-radius: 2%;
+#casa1 {
+  border-right: rgb(245, 242, 244) solid 6px;
+  border-bottom: rgb(245, 242, 244) solid 6px;
 }
 
-.casa {
-  width: 135px;
-  height: 103%;
-  border-right: solid 7px;
-  float: left;
-  border-radius: 2%;
+#casa2 {
+  border-right: rgb(245, 242, 244) solid 6px;
+  border-bottom: rgb(245, 242, 244) solid 6px;
+}
+
+#casa3 {
+  border-bottom: rgb(245, 242, 244) solid 6px;
+}
+
+#casa4 {
+  border-right: rgb(245, 242, 244) solid 6px;
+  border-bottom: rgb(245, 242, 244) solid 6px;
+}
+
+#casa5 {
+  border-right: rgb(245, 242, 244) solid 6px;
+  border-bottom: rgb(245, 242, 244) solid 6px;
+}
+
+#casa6 {
+  border-bottom: rgb(245, 242, 244) solid 6px;
+}
+
+#casa7 {
+  border-right: rgb(245, 242, 244) solid 6px;
+}
+
+#casa8 {
+  border-right: rgb(245, 242, 244) solid 6px;
 }
