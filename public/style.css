@@ -1,0 +1,46 @@
+body {
+  background: linear-gradient(
+    65.49deg,
+    #30597a 23.53%,
+    #44b9ce 120.36%,
+    #cddfe2 120.36%
+  );
+
+  font-family: "Josefin Sans";
+}
+
+#container {
+  display: flex;
+  overflow: hidden;
+  flex-direction: column;
+  margin-left: 33.333%;
+  margin-top: 1%;
+}
+
+h1 {
+  margin-left: 2%;
+  color: rgb(245, 242, 244);
+}
+
+#jogo {
+  width: 403px;
+  height: 400px;
+  /* border: solid 8px;  */
+  margin-top: 3%;
+  border-radius: 2%;
+  color: rgb(219, 215, 218);
+}
+
+.linha {
+  height: 133px;
+  border-bottom: solid 7px;
+  border-radius: 2%;
+}
+
+.casa {
+  width: 135px;
+  height: 103%;
+  border-right: solid 7px;
+  float: left;
+  border-radius: 2%;
+}
