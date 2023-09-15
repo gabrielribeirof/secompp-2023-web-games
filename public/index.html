@@ -13,61 +13,68 @@
   </head>
   <body>
     <div id="container">
-      <h1>Jogo da velha Multiplayer</h1>
+      <h1 class="player_indicator"></h1>
 
-      <div id="jogo">
-        <div id="casa1">.</div>
-        <div id="casa2">.</div>
-        <div id="casa3">.</div>
-        <div id="casa4">.</div>
-        <div id="casa5">.</div>
-        <div id="casa6">.</div>
-        <div id="casa7">.</div>
-        <div id="casa8">.</div>
-        <div id="casa9">.</div>
+      <div id="game">
+        <div id="casa1" data-index="1"></div>
+        <div id="casa2" data-index="2"></div>
+        <div id="casa3" data-index="3"></div>
+        <div id="casa4" data-index="4"></div>
+        <div id="casa5" data-index="5"></div>
+        <div id="casa6" data-index="6"></div>
+        <div id="casa7" data-index="7"></div>
+        <div id="casa8" data-index="8"></div>
+        <div id="casa9" data-index="9"></div>
+      </div>
+
+      <div class="modal">
+        <div class="modal_body">
+          <div class="message"></div>
+          <button class="reset_btn">Play Again</button>
+        </div>
       </div>
     </div>
 
     <script type="module">
-      import { createGame } from './game.js'
+      import { createGame } from "./game.js";
 
-      const game = createGame()
-      const socket = io()
+      const game = createGame();
+      const socket = io();
 
-      socket.on('connect', () => {
-        console.log(`>>> Player connected with id ${socket.id}`)
+      socket.on("connect", () => {
+        console.log(`>>> Player connected with id ${socket.id}`);
 
-        socket.emit('add-turn', {
+        socket.emit("add-turn", {
           playerId: socket.id,
-          index: 1
-        })
-      })
+          index: 1,
+        });
+      });
 
-      socket.on('setup', command => {
-        game.setState(command.state)
-      })
+      socket.on("setup", (command) => {
+        game.setState(command.state);
+      });
 
-      socket.on('add-player', command => {
-        console.log(`Receiving ${command.type} -> ${command.playerId}`)
+      socket.on("add-player", (command) => {
+        console.log(`Receiving ${command.type} -> ${command.playerId}`);
 
-        game.addPlayer(command)
-      })
+        game.addPlayer(command);
+      });
 
-      socket.on('remove-player', command => {
-        console.log(`Receiving ${command.type} -> ${command.playerId}`)
-        
-        game.removePlayer(command)
-      })
+      socket.on("remove-player", (command) => {
+        console.log(`Receiving ${command.type} -> ${command.playerId}`);
 
-      socket.on('add-turn', command => {
-        console.log(`Receiving ${command.type} -> ${command.playerId}`)
-      })
+        game.removePlayer(command);
+      });
 
-      socket.on('reset-game', () => {
-        console.log(`Receiving ${command.type}`)
+      socket.on("add-turn", (command) => {
+        console.log(`Receiving ${command.type} -> ${command.playerId}`);
+      });
 
-        game.resetGame()
-      })
+      socket.on("reset-game", () => {
+        console.log(`Receiving ${command.type}`);
+
+        game.resetGame();
+      });
     </script>
   </body>
 </html>
