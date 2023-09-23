@@ -11,12 +11,12 @@ app.use(express.static('public'))
 
 const game = createGame()
 
-game.registerObserver(command => {
-  console.log('>>> Command:', JSON.stringify(command, null, 2))
+game.subscribe(command => {
+  console.log('>>> Game command:', JSON.stringify(command, null, 2))
 })
 
-game.registerObserver(command => {
-  io.emit(command.type, command)
+game.subscribe(command => {
+  io.except(command.playerId).emit(command.type, command)
 })
 
 io.use((socket, next) => {
@@ -36,18 +36,14 @@ io.on('connection', socket => {
 
   socket.emit('setup', { state: game.state })
 
-  socket.on('disconnect', () => {
-    game.removePlayer({ playerId: socket.id })
-    console.log(`>>> Player disconnected: ${socket.id}`)
-  })
-
-  socket.on('add-turn', command => {
-    game.addTurn(command)
-  })
-
-  socket.on('reset-game', command => {
-    game.resetGame()
-  })
+  socket.on('disconnect', () => game.removePlayer({ playerId: socket.id }))
+  socket.on('add-turn', command => game.addTurn(command))
+  socket.on('reset', command => game.reset(command))
+  socket.on('play-again', command => game.playAgain(command))
 })
 
 server.listen(3000, () => console.log('Servidor ouvindo em http://localhost:3000'))
+
+process.stdin.on('data', () => {
+  console.log(JSON.stringify(game.state, '', 2))
+})
