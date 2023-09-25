@@ -49,7 +49,7 @@ export function createGame() {
     return state.players[playerId]
   }
 
-  function getPlayerBySymbol(symbol) {
+  function getPlayerIdBySymbol(symbol) {
     return Object.entries(state.players).find(([_, value]) => value.symbol === symbol)[0]
   }
 
@@ -74,7 +74,7 @@ export function createGame() {
         symbol: 'O',
         points: 0
       }
-      state.currentPlayerId = getPlayerBySymbol('X')
+      state.currentPlayerId = getPlayerIdBySymbol('X')
       state.currentPlayerSymbol = 'X'
       state.status = STATUS.READY
     }
@@ -126,7 +126,7 @@ export function createGame() {
         state.currentPlayerSymbol = null
         state.status = STATUS.GAME_OVER
 
-        state.players[getPlayerBySymbol(winner)].points++
+        state.players[getPlayerIdBySymbol(winner)].points++
 
         notifyAll({
           type: 'add-turn',
@@ -155,7 +155,7 @@ export function createGame() {
     }
     
     state.currentPlayerSymbol = state.currentPlayerSymbol === 'X' ? 'O' : 'X'
-    state.currentPlayerId = getPlayerBySymbol(state.currentPlayerSymbol)
+    state.currentPlayerId = getPlayerIdBySymbol(state.currentPlayerSymbol)
 
     notifyAll({
       type: 'add-turn',
@@ -188,7 +188,7 @@ export function createGame() {
     }
 
     Object.assign(state, {
-      currentPlayerId: getPlayerBySymbol('X'),
+      currentPlayerId: getPlayerIdBySymbol('X'),
       currentPlayerSymbol: 'X',
       board: Array(9).fill(null),
       tieAmount: 0,
@@ -204,7 +204,7 @@ export function createGame() {
     const nextSymbol = calculateWinner() === 'X' ? 'O' : 'X'
 
     Object.assign(state, {
-      currentPlayerId: getPlayerBySymbol(nextSymbol),
+      currentPlayerId: getPlayerIdBySymbol(nextSymbol),
       currentPlayerSymbol: nextSymbol,
       board: Array(9).fill(null),
       status: STATUS.READY
@@ -223,7 +223,6 @@ export function createGame() {
     removePlayer,
     addTurn,
     isTied,
-    calculateWinner,
     reset,
     playAgain
   }

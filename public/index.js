@@ -23,13 +23,14 @@ socket.on('disconnect', () => {
 
 socket.on('setup', command => {
   game.setState(command.state)
+  ui.setLocalPlayer(game.getPlayerById(socket.id))
 
   game.subscribe(() => {
     if (game.state.status === STATUS.GAME_OVER) {
-      return ui.update(game.state, game.getPlayerById(socket.id), game.calculateWinner())
+      return ui.update(game.state, game.calculateWinner())
     }
 
-    ui.update(game.state, game.getPlayerById(socket.id))
+    ui.update(game.state)
   })
   game.subscribe(command => {
     if (command.playerId === socket.id) {
@@ -37,7 +38,7 @@ socket.on('setup', command => {
     }
   })
 
-  ui.update(game.state, game.getPlayerById(socket.id))
+  ui.update(game.state)
 
   inputListener.subscribe(command => {
     switch (command.type) {

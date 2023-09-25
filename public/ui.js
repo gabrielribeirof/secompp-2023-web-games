@@ -12,8 +12,7 @@ export function createUI() {
     localPlayer = player
   }
 
-  function update(state, localPlayer, winner) {
-    setLocalPlayer(localPlayer)
+  function update(state, winner) {
     updateBoard(state.board)
     updateIndicator(state, winner)
     updatePanel(state)
@@ -80,8 +79,6 @@ export function createUI() {
     xPanelPoints.textContent = x ? x[1].points : 0
     oPanelPoints.textContent = o ? o[1].points : 0
     tiePanelPoints.textContent = state.tieAmount
-
-    if (localPlayer.symbol === 'X') xPanelPoints.style
   }
 
   function showControlButtons() {
