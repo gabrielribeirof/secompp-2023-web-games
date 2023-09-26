@@ -54,7 +54,7 @@ export function createGame() {
   }
 
   function canReceiveMorePlayers() {
-    return playersAmount() === 2 ? false : true
+    return playersAmount() < 2
   }
 
   function turnsAmount() {
@@ -224,6 +224,7 @@ export function createGame() {
     addTurn,
     isTied,
     reset,
-    playAgain
+    playAgain,
+    calculateWinner
   }
 }
