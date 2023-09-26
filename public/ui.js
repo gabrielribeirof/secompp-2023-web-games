@@ -12,7 +12,8 @@ export function createUI() {
     localPlayer = player
   }
 
-  function update(state, winner) {
+  function update(state, player, winner) {
+    setLocalPlayer(player)
     updateBoard(state.board)
     updateIndicator(state, winner)
     updatePanel(state)
