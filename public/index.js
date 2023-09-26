@@ -27,10 +27,10 @@ socket.on('setup', command => {
 
   game.subscribe(() => {
     if (game.state.status === STATUS.GAME_OVER) {
-      return ui.update(game.state, game.calculateWinner())
+      return ui.update(game.state, game.getPlayerById(socket.id), game.calculateWinner())
     }
 
-    ui.update(game.state)
+    ui.update(game.state, game.getPlayerById(socket.id))
   })
   game.subscribe(command => {
     if (command.playerId === socket.id) {
@@ -38,7 +38,7 @@ socket.on('setup', command => {
     }
   })
 
-  ui.update(game.state)
+  ui.update(game.state, game.getPlayerById(socket.id))
 
   inputListener.subscribe(command => {
     switch (command.type) {
